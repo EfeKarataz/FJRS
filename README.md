@@ -1,9 +1,9 @@
 # Fair Job Recommender — Exposure Inequality Study
 
-A course project template for **Recommender Systems in Society**.
+A course project for **Recommender Systems in Society**.
 
 This repo implements an end-to-end pipeline to:
-1) **simulate** a job recommendation environment (users, jobs, interactions),
+1) Data,
 2) train a **baseline collaborative filtering** model (implicit MF via SGD),
 3) compute **accuracy + exposure fairness** metrics,
 4) apply a **fairness-aware re-ranking** step and compare trade-offs.
@@ -22,7 +22,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2) Simulate data
+### 2) Clean data
 ```bash
 python -m src.simulate_data --out_dir data/sim --seed 42 --n_users 2000 --n_jobs 1500
 ```
