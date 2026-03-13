@@ -1,15 +1,23 @@
-# data & outputs
+# Data & outputs
 data/
 outputs/
+*.zip
 
-# env
+# Environment
 .venv/
 __pycache__/
 *.pyc
+*.pyo
 
-# notebooks
+# Notebooks
 .ipynb_checkpoints/
 
 # OS
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
