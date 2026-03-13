@@ -19,9 +19,13 @@ A course project for **Recommender Systems in Society** that investigates **algo
 
 ```
 FJRS/
-├── data/                        # Cleaned dataset (fjrs_data.zip) — not committed
+├── data/                           # Cleaned dataset — not committed
+│   ├── interactions.parquet
+│   ├── jobs.parquet
+│   ├── users.parquet
+│   ├── user_history_agg.parquet
+│   └── meta.json
 ├── notebooks/
-│   ├── 01_data_preparation.ipynb   # Clean raw Kaggle data → fjrs_data.zip
 │   └── FJRS Notebook.ipynb         # Main pipeline: train, evaluate, re-rank
 ├── .gitignore
 ├── LICENSE
@@ -33,19 +37,12 @@ FJRS/
 
 ## Pipeline Overview
 
-The analysis runs across **two notebooks**:
-
-| Notebook | Purpose |
-|---|---|
-| `01_data_preparation.ipynb` | Clean the raw Kaggle dataset and export `fjrs_data.zip` |
-| `FJRS Notebook.ipynb` | Load cleaned data, train model, measure and mitigate unfairness |
-
-### Steps in the main notebook
+The full analysis runs in a single notebook: **`notebooks/FJRS Notebook.ipynb`**
 
 | Step | Description |
 |---|---|
 | 0 | Setup & imports |
-| 1 | Load cleaned data from `fjrs_data.zip` |
+| 1 | Load cleaned data (`interactions.parquet`, `users.parquet`, `jobs.parquet`) |
 | 2 | Train / test split (80/20) & sparse interaction matrix |
 | 3 | Baseline model: Implicit Matrix Factorization (BPR-SGD) |
 | 4 | Generate baseline recommendations |
@@ -75,20 +72,20 @@ pip install -r requirements.txt
 
 ### 2. Prepare the data
 
-Open and run `notebooks/01_data_preparation.ipynb` to produce `fjrs_data.zip` from the raw Kaggle dataset. Place the resulting zip in the same directory as the main notebook (or in `data/`).
+Place the cleaned dataset files (`interactions.parquet`, `users.parquet`, `jobs.parquet`, `user_history_agg.parquet`, `meta.json`) in the `data/` directory.
 
 ### 3. Run the pipeline
 
 Open `notebooks/FJRS Notebook.ipynb` and run all cells top-to-bottom.
 
-> **Colab users:** a file picker opens automatically when loading the zip.  
-> **Jupyter / JupyterLab:** place `fjrs_data.zip` next to the notebook.
+> **Colab users:** upload the data files when prompted or mount your Google Drive.  
+> **Jupyter / JupyterLab:** ensure the `data/` directory is populated before running.
 
 ---
 
 ## Dataset
 
-The cleaned dataset (`fjrs_data.zip`) contains:
+The cleaned dataset in `data/` contains:
 
 | File | Description |
 |---|---|
@@ -98,7 +95,7 @@ The cleaned dataset (`fjrs_data.zip`) contains:
 | `user_history_agg.parquet` | Aggregated past job titles per user (for future content-based extensions) |
 | `meta.json` | Scalars `N_USERS` and `N_JOBS` |
 
-**Scale:** ~308k users, ~350k jobs, ~1.4M interactions.
+**Scale:** ~308,000 users · ~350,000 jobs · ~1.4M interactions.
 
 ---
 
