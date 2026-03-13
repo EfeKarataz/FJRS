@@ -1,7 +1,5 @@
-# Data & outputs
-data/
+# Outputs
 outputs/
-*.zip
 
 # Environment
 .venv/

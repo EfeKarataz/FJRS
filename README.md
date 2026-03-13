@@ -19,7 +19,7 @@ A course project for **Recommender Systems in Society** that investigates **algo
 
 ```
 FJRS/
-├── data/                           # Cleaned dataset — not committed
+├── data/                           # Cleaned dataset
 │   ├── interactions.parquet
 │   ├── jobs.parquet
 │   ├── users.parquet
@@ -70,16 +70,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Prepare the data
+### 2. Run the pipeline
 
-Place the cleaned dataset files (`interactions.parquet`, `users.parquet`, `jobs.parquet`, `user_history_agg.parquet`, `meta.json`) in the `data/` directory.
-
-### 3. Run the pipeline
-
-Open `notebooks/FJRS Notebook.ipynb` and run all cells top-to-bottom.
-
-> **Colab users:** upload the data files when prompted or mount your Google Drive.  
-> **Jupyter / JupyterLab:** ensure the `data/` directory is populated before running.
+The dataset is included in the repository. Open `notebooks/FJRS Notebook.ipynb` and run all cells top-to-bottom.
 
 ---
 
