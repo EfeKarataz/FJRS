@@ -112,6 +112,8 @@ L = −log σ(x_ui − x_uj) + λ · ‖θ‖²
 | `REG` | 0.01 |
 | `SAMPLE_SIZE` | 50,000 interactions |
 
+> Note: accuracy metrics are expected to be very low given the extreme sparsity of the dataset (~1.4M interactions across ~308K users and ~350K jobs). Increasing `SAMPLE_SIZE` and `EPOCHS` will improve results at the cost of longer training time.
+
 ---
 
 ## Metrics
@@ -134,12 +136,13 @@ L = −log σ(x_ui − x_uj) + λ · ‖θ‖²
 A greedy post-processing algorithm re-orders each user's candidate list:
 
 ```
-score(item) = alpha * relevance(item) - beta * exposure_penalty(item)
+score(item) = (TOPK - rank) - beta * exposure_penalty(rank)
 ```
+
+where `exposure_penalty(rank) = 1 / log2(rank + 2)`.
 
 | Parameter | Default | Effect |
 |---|---|---|
-| `alpha` | 1.0 | Relevance weight |
 | `beta` | 0.2 | Fairness strength: higher = more fairness, less accuracy |
 
 The trade-off frontier (sweeping beta from 0 to 0.5) shows achievable accuracy/fairness combinations.
@@ -149,9 +152,10 @@ The trade-off frontier (sweeping beta from 0 to 0.5) shows achievable accuracy/f
 ## Results
 
 - BPR loss decreases steadily across 15 epochs, confirming the model learns meaningful ranking relationships.
-- Accuracy metrics are low but expected given extreme data sparsity.
-- Baseline exposure gap between Group A and Group B is very small (~0.002).
+- Accuracy metrics (Precision@K, Recall@K, nDCG@K) are very low due to extreme data sparsity, which is expected for implicit feedback systems at this scale.
+- Baseline exposure gap between Group A and Group B is very small (~0.001).
 - Fairness re-ranking has minimal impact on accuracy while maintaining exposure parity.
+- The trade-off sweep shows that recall remains stable across different beta values.
 
 ---
 
